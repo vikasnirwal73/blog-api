@@ -37,6 +37,6 @@ module.exports = (req, res, next) => {
             })
         })
         .catch(err => {
-            errorHandler(err, res, 'Login failed.')
+            errorHandler(err, res, 'Login failed. No user defined!');
         })
 }

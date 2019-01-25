@@ -4,7 +4,8 @@ const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/blog');
+mongoose.set('useCreateIndex', true);
+mongoose.connect('mongodb://localhost/blog', { useNewUrlParser: true });
 
 const app = express();
 
@@ -20,11 +21,13 @@ app.use(cors());
 app.use(morgan('dev'));
 
 
-//Getting routers
+//Getting & setting routes
 const userRoutes = require('./api/routes/user.route');
+const postRoutes = require('./api/routes/post.route');
 
+app.use('/users', userRoutes);
+app.use('/posts', postRoutes);
 
-app.use('/user', userRoutes);
 
 //Handling 404 error
 app.use((req, res, next) => {
@@ -33,7 +36,7 @@ app.use((req, res, next) => {
     next(err);
 })
 
-//Handling errors
+//Handling all other errors errors
 app.use((err, req, res, next) => {
     res.status(err.status || 500).json({
         error: err,

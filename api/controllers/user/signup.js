@@ -4,8 +4,8 @@ const errorHandler = require('../../middlewares/errorhandler');
 
 module.exports = (req, res, next) => {
     User.findOne({
-            email: req.body.email
-        })
+        email: req.body.email
+    })
         .exec()
         .then(doc => {
             if (doc == null) {
@@ -35,13 +35,11 @@ module.exports = (req, res, next) => {
                     })
                 })
             } else {
+                // const err = new Error('Not valid information.')
                 errorHandler(err, res, 'Can\'t create user.');
             }
         })
         .catch(err => {
             errorHandler(err, res, 'Can\'t create user.');
         })
-
-
-
 }
