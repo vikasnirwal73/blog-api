@@ -1,16 +1,33 @@
 const express = require('express');
 const router = express.Router();
-const checkAuth = require('../middlewares/auth');
-const postContrller = require('../controllers/post/post.controller');
 
-router.get('/', (req, res, next) => {
-    res.status(200).json({
-        posts: [{
-            title: 'sample post.'
-        }]
-    })
+
+const checkAuth = require('../middlewares/auth');
+const postController = require('../controllers/post/post.controller');
+const getPostsController = require('../controllers/post/getPosts.controller');
+const getSinglePostController = require('../controllers/post/getSinglePost.controller');
+const editPostController = require('../controllers/post/editPost.controller');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/')
+    },
+    filename: (req, file, cb) => {
+        console.log(file)
+        cb(null, Date.now() + file.originalname);
+    }
 })
 
-router.post('/', checkAuth, postContrller);
+const upload = multer({
+    storage
+});
+
+
+
+router.post('/', checkAuth, upload.single('image'), postController);
+router.get('/', getPostsController);
+router.get('/:id', getSinglePostController);
+router.put('/:id', editPostController);
 
 module.exports = router;

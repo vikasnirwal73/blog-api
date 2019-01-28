@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const path = require('path');
+
 
 mongoose.set('useCreateIndex', true);
 mongoose.connect('mongodb://localhost/blog', { useNewUrlParser: true });
@@ -19,7 +21,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cors());
 app.use(morgan('dev'));
-
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 //Getting & setting routes
 const userRoutes = require('./api/routes/user.route');

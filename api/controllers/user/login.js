@@ -19,7 +19,7 @@ module.exports = (req, res, next) => {
                         },
                         (err, token) => {
                             if (err) {
-                                errorHandler(err, res, 'Error here');
+                                errorHandler(err, res);
                             } else {
                                 res.status(200).json({
                                     message: 'Login sucessful',
@@ -37,6 +37,6 @@ module.exports = (req, res, next) => {
             })
         })
         .catch(err => {
-            errorHandler(err, res, 'Login failed. No user defined!');
+            errorHandler(err, res, 'Login failed.')
         })
 }
