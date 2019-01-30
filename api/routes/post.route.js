@@ -23,11 +23,9 @@ const upload = multer({
     storage
 });
 
-
-
 router.post('/', checkAuth, upload.single('image'), postController);
 router.get('/', getPostsController);
 router.get('/:id', getSinglePostController);
-router.put('/:id', editPostController);
+router.patch('/:id', checkAuth, upload.single('image'), editPostController);
 
 module.exports = router;
