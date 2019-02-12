@@ -16,10 +16,10 @@ module.exports = (req, res, next) => {
                         _id: id
                     }, {
                         $set: {
-                            title: req.body.title,
-                            body: req.body.body,
+                            title: req.body.title || doc.title,
+                            body: req.body.body || doc.body,
                             editDate: Date.now(),
-                            featuredImage: `http://localhost:${process.env.PORT}/uploads/${req.file.filename}`
+                            featuredImage: `http://localhost:${process.env.PORT}/uploads/${req.file.filename}` || doc.featuredImage
                         }
                     }).exec()
                     .then(result => {
@@ -36,18 +36,5 @@ module.exports = (req, res, next) => {
         })
         .catch(err => errorhandler(err, res, 'Error while modifing the post.'));
 
-
-
-
 }
 
-// Tank.findByIdAndUpdate(id, {
-//     $set: {
-//         size: 'large'
-//     }
-// }, {
-//     new: true
-// }, function (err, tank) {
-//     if (err) return errorhandler(err, res);
-//     res.send(tank);
-// });

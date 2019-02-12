@@ -9,7 +9,8 @@ module.exports = (req, res, next) => {
                     name: user.name,
                     username: user.username,
                     email: user.email,
-                    posts: user.posts
+                    posts: user.posts,
+                    avtar: user.avtar
                 }
             })
             res.json({

@@ -10,7 +10,8 @@ module.exports = (req, res, next) => {
         dateCreated: Date.now(),
         featuredImage: `http://localhost:${process.env.PORT}/uploads/${req.file.filename}`
     });
-    newPost.save()
+    newPost
+        .save()
         .then(doc => {
             res.status(201).json({
                 message: 'Post added.',
