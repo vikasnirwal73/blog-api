@@ -23,7 +23,12 @@ module.exports = (req, res, next) => {
                             } else {
                                 res.status(200).json({
                                     message: 'Login sucessful',
-                                    token: token
+                                    token: token,
+                                    email: doc.email,
+                                    name:doc.name,
+                                    username:doc.username,
+                                    avtar:doc.avtar ? doc.avtar : null,
+                                    _id: doc._id
                                 })
                             }
                         })

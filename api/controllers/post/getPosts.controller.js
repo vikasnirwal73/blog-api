@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
     const page = +req.query.page;
     const limit = +req.query.limit;
     console.log(page, limit);
-    if (typeof page == 'number' && typeof limit == 'number') {
+    if ((typeof page == 'number' && typeof limit == 'number') && (page && limit) ) {
         Post.paginate({}, {
             page: page,
             limit: limit
